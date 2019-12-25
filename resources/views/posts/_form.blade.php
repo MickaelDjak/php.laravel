@@ -12,14 +12,12 @@
 
 <div class="form-group">
     <lable for='post-content'>Content</lable>
-    <input 
-        type='text'
-        id='post-content'
+    <textarea 
+    id='post-content'
+        class="form-control"
         name='content'
         placeholder="Post content"
-        class="form-control"
-        value="{{ old('content', $post->content ?? null)  }}"
-    />
+    />{{ old('content', $post->content ?? null)  }}</textarea>
 </div>
 
 @include('peaces._errors')

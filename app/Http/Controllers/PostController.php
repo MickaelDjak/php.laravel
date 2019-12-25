@@ -6,10 +6,19 @@ use App\BlogPost;
 use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +56,7 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -91,10 +100,10 @@ class PostController extends Controller
 
         $request->session()->flash('status', 'Blog post was created!!!');
 
-        return redirect()->route('posts.show', ['post' => $blogPost->id]);
+        return redirect()->route('posts.store', ['post' => $blogPost->id]);
     }
 
-     /**
+    /**
      * Undocumented function
      *
      * @param Request
@@ -103,7 +112,7 @@ class PostController extends Controller
     public function destroy(Request $request, $id)
     {
         $blogPost = BlogPost::findOrFail($id);
-        
+
         $blogPost->delete();
 
         $request->session()->flash('status', 'Blog post was deleted!!!');

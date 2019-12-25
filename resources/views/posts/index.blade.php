@@ -1,12 +1,13 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('page-title')
 Post index
 @endsection
 
 @section('content')
-    <div class="position-ref full-height">
-        <div class="content">
+<div class="container">
+    <div class="row">
+        <div class="col-12 content">
             <h2>Post list</h2>
             @forelse($posts as $post)
             <hr/>
@@ -39,4 +40,5 @@ Post index
             @endforelse
         </div>
     </div>
+</div>
 @endsection

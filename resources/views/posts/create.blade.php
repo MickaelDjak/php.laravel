@@ -1,18 +1,21 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('page-title')
 Post create
 @endsection
 
 @section('content')
-    <div class="flex-center position-ref full-height">
-        <div class="content">
+<div class="container">
+    <div class="row">
+        <div class="col-12 content">
             <form method="POST" action="{{ route('posts.store') }}">
                 @csrf
                 @include('posts._form')
-                <button type="submit" class="btn btn-primary btn-block">Complete</button>
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
             </form>
+            <p class="text-muted">Post create</p>
         </div>
     </div>
-    <p class="text-muted">Post create</p>
+    
+</div>
 @endsection

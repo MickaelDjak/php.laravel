@@ -4,6 +4,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="content">
+                <h1>Welcom to Laravel Course</h1>
+                <p>This is the content of the main page!</p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 

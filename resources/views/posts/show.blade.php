@@ -1,12 +1,13 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('page-title')
 Post show
 @endsection
 
 @section('content')
-    <div class="flex-center position-ref full-height">
-        <div class="content">
+<div class="container">
+    <div class="row">
+        <div class="content col-12">
             <a href="{{ route('posts.index') }}">Go back to list</a>
             <h2>
                 {{ $post->title }} 
@@ -39,4 +40,5 @@ Post show
 
         </div>
     </div>
+</div>
 @endsection
