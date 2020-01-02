@@ -44,12 +44,15 @@ class PostTest extends TestCase
 
     public function testStoreValid()
     {
+        $user = $this->user();
+
         $params = [
             'title' => 'Validete title',
             'content' => 'At least 10 charactes',
         ];
 
-        $this->post('/posts', $params)
+        $this->actingAs($user)
+            ->post('/posts', $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -58,32 +61,39 @@ class PostTest extends TestCase
 
     public function testStoreFail()
     {
+        $user = $this->user();
+
         $params = [
             'title' => 'x',
             'content' => 'x',
         ];
 
-        $this->post('/posts', $params)
+        $this->actingAs($user)
+            ->post('/posts', $params)
             ->assertStatus(302)
             ->assertSessionHas('errors');
 
         $message = session('errors')->getMessages();
+
         $this->assertEquals(current($message['title']), 'The title must be at least 5 characters.');
         $this->assertEquals(current($message['content']), 'The content must be at least 10 characters.');
     }
 
     public function testUpdateValid()
     {
+        $user = $this->user();
+
         $post = $this->crateDummyBlogPost();
 
         $this->assertDatabaseHas('blog_posts', $post->toArray());
-        
+
         $params = [
             'title' => 'A new name of title',
             'content' => 'Content was changed',
         ];
 
-        $this->put("/posts/{$post->id}", $params)
+        $this->actingAs($user)
+            ->put("/posts/{$post->id}", $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
 
@@ -95,19 +105,20 @@ class PostTest extends TestCase
 
     public function testDeleteValid()
     {
+        $user = $this->user();
+
         $post = $this->crateDummyBlogPost();
 
         $this->assertDatabaseHas('blog_posts', $post->toArray());
 
-        $this->delete("/posts/{$post->id}")
+        $this->actingAs($user)
+            ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
 
         $this->assertDatabaseMissing('blog_posts', $post->toArray());
-
         $this->assertEquals(session('status'), 'Blog post was deleted!!!');
     }
-
 
     /**
      * @return BlogPost
